@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-catalog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-catalog
+  template:
+    metadata:
+      labels:
+        app: book-catalog
+    spec:
+      containers:
+      - name: book-catalog
+        image: task8app.azurecr.io/book-catalog:latest
+        imagePullPolicy: Always
+        env:
+        - name: PORT
+          value: "8001"
+        - name: DATABASE_URL
+          value: "postgresql://sit722_part5_postgres_user:pa9MzCShbAsbjPF5siy4xcpILO8axGvw@dpg-crrv35d6l47c73cp680g-a.oregon-postgres.render.com/sit722_part5_postgres"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: book-catalog
+spec:
+  selector:
+    app: book-catalog
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-management
+  template:
+    metadata:
+      labels:
+        app: inventory-management
+    spec:
+      containers:
+      - name: inventory-management
+        image: task8app.azurecr.io/inventory-management:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8002
+        env:
+        - name: PORT
+          value: "8002"
+        - name: DATABASE_URL
+          value: "postgresql://sit722_part5_postgres_user:pa9MzCShbAsbjPF5siy4xcpILO8axGvw@dpg-crrv35d6l47c73cp680g-a.oregon-postgres.render.com/sit722_part5_postgres"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-management
+spec:
+  selector:
+    app: inventory-management
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8002
