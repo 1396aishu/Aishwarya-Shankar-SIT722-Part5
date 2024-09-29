@@ -16,3 +16,11 @@ output "acr_login_server" {
 output "registry_name" {
   value = azurerm_container_registry.registry08.name
 }
+
+output "registry_admin_username" {
+  value = azurerm_container_registry.registry08.admin_username
+}
+output "registry_admin_password" {
+  value = azurerm_container_registry.registry08.admin_password
+  sensitive = true 
+}
