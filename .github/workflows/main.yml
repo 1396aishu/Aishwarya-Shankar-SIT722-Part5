@@ -23,6 +23,13 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
          
       - name: Settingup terraform
         uses: hashicorp/setup-terraform@v2
@@ -68,14 +75,12 @@ jobs:
       - name: Building Docker images
         env:
           CONTAINER_REGISTRY: ${{ env.CONTAINER_REGISTRY }}
-          VERSION: ${{ github.sha }}
         run: ./scripts/build-image.sh
  
  
       - name: Push Docker images
         env:
           CONTAINER_REGISTRY: ${{ env.CONTAINER_REGISTRY }}
-          VERSION: ${{ github.sha }}
         run: ./scripts/push-image.sh
  
       - name: Get AKS credentials
@@ -88,10 +93,9 @@ jobs:
       - name: Deploy microservices
         env:
           CONTAINER_REGISTRY: ${{ env.CONTAINER_REGISTRY }}
-          VERSION: ${{ github.sha }}
         run: ./scripts/deploy.sh
  
-      - run: sleep 60
+      - run: sleep 120
  
       - name: Get kube details
         run: |
