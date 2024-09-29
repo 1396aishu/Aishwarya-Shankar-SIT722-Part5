@@ -3,5 +3,5 @@ set -u # or set -o nounset
 : "$VERSION"
 
 
-docker push $CONTAINER_REGISTRY.azurecr.io/book-catalog:$VERSION
-docker push $CONTAINER_REGISTRY.azurecr.io/inventory-management:$VERSION
+docker push $CONTAINER_REGISTRY.azurecr.io/book-catalog:latest
+docker push $CONTAINER_REGISTRY.azurecr.io/inventory-management:latest

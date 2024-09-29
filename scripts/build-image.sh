@@ -1,5 +1,6 @@
 set -u # or set -o nounset
 : "$CONTAINER_REGISTRY"
+: "$VERSION"
 
 # Build the Docker image
 docker-compose up --build -d
