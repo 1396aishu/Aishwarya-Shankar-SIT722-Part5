@@ -30,21 +30,21 @@ jobs:
           terraform_version: 1.5.6
  
       - name: terraform init
-        working-directory: ./Terraform
+        working-directory: ./scripts/terraform
         run: terraform init
  
       - name: terraform plan
-        working-directory: ./Terraform
+        working-directory: ./scripts/terraform
         run: terraform plan
  
       - name: terraform apply
-        working-directory: ./Terraform
+        working-directory: ./scripts/terraform
         run: terraform apply -auto-approve
  
  
  
       - name: Getting ACR Name
-        working-directory: ./Terraform
+        working-directory: ./scripts/terraform
         run: |
           CONTAINER_REGISTRY=$(terraform-bin output -raw registry_name)
           echo "CONTAINER_REGISTRY=$CONTAINER_REGISTRY" >> $GITHUB_ENV
