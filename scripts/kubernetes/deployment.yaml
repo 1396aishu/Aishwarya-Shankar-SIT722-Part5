@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: book-catalog
-        image: task8app.azurecr.io/book-catalog:latest
+        image: registry08.azurecr.io/book-catalog:latest
         imagePullPolicy: Always
         env:
         - name: PORT
@@ -51,7 +51,7 @@ spec:
     spec:
       containers:
       - name: inventory-management
-        image: task8app.azurecr.io/inventory-management:latest
+        image: registry08.azurecr.io/inventory-management:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8002
