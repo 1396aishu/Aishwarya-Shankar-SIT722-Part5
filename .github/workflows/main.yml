@@ -87,7 +87,8 @@ jobs:
           CONTAINER_REGISTRY: ${{ env.CONTAINER_REGISTRY }}
           VERSION: ${{ github.sha }}
         run: ./scripts/deploy.sh
- 
+        
+      - run: sleep 90
  
       - name: Get kube details
         run: |
